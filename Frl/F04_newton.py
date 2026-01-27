@@ -18,13 +18,15 @@ def main():
     plt.grid()
 
     # Startgissning
-    x = ...
-    diff = ...
-    tolerans = ...
+    x = 5
+    diff = np.inf # tal större än toleransen
+    tolerans = 1e-12
     # Newtons metod
     while np.abs(diff) >= tolerans:
-        ...
-        print(x)
+        diff = -f(x)/fprim(x)
+        x += diff
+        print(x, diff)
+    plt.plot(x, f(x), '*')
     return
 
 
