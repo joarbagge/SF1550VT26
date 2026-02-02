@@ -11,6 +11,9 @@ A = np.random.randn(n, n)
 x = np.random.randn(n)
 
 tic = time.time()
-b = A*x
+b = A @ x
 toc = time.time() - tic
 print(f'Det tog {toc} s.')
+
+# När man dubblerar n borde tiden öka med en faktor
+# fyra! Testa att det stämmer.
