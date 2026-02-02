@@ -1,5 +1,5 @@
 '''
-Exempel från Föreläsning 5 (2026-01-29)
+Exempel från Föreläsning 5 (2026-01-29) och 6 (2026-02-02)
 '''
 
 import numpy as np
@@ -25,29 +25,30 @@ def main():
     print('x2 =', x2)
 
     # LU-faktorisering med partiell pivotering
-    P, L, U = sp.linalg.lu(A)
-    # Utdata uppfyller: A = P @ L @ U
+    Pt, L, U = sp.linalg.lu(A)
+    # Utdata uppfyller: A = Pt @ L @ U
 
     # Det linjära ekvationssystemet
     #
     # A @ x = b
     #
-    # blir alltså till P @ L @ U @ x = b,
+    # blir alltså till Pt @ L @ U @ x = b,
     # vilket vi kan skriva om som:
     #
-    # L @ (U @ x) = P.T @ b
+    # L @ (U @ x) = Pt.T @ b
     #
-    # (Här betyder P.T transponatet av P, för
+    # (Här betyder Pt.T transponatet av Pt, för
     # permutationsmatriser är inversen lika med transponatet.)
     #
-    # Inför variabeln bhat = U @ x
+    # Inför variabeln y = U @ x
     # så kan ovanstående skrivas som:
     #
-    # L @ bhat = P.T @ b
+    # L @ y = Pt.T @ b
 
     # Lös med hjälp av LU-faktoriseringen
-    bhat = sp.linalg.solve_triangular(L, P.T @ b, lower=True)
-    x3 = sp.linalg.solve_triangular(U, bhat)
+    P = Pt.T
+    y = sp.linalg.solve_triangular(L, P @ b, lower=True)
+    x3 = sp.linalg.solve_triangular(U, y)
     print('x3 =', x3)
 
     # I detta fall borde alla tre metoder ge (nästan) exakt samma svar.
